@@ -9,6 +9,7 @@ King-of-the-Hill/[Bb]uild/
 King-of-the-Hill/[Bb]uilds/
 King-of-the-Hill/[Ll]ogs/
 King-of-the-Hill/[Mm]emoryCaptures/
+King-of-the-Hill/Assets/ML-Agents/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
