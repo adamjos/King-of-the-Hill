@@ -45,9 +45,13 @@ public class SphereAgent : Agent
 
         rb.AddForce(_moveDir * moveForce * Time.deltaTime, ForceMode.VelocityChange);
 
-        if (Vector3.Dot(rb.velocity, -(transform.position - new Vector3(winPosition.position.x, 0f, winPosition.position.z))) > 0.25f)
+        if (Vector3.Dot(rb.velocity, -(transform.position - new Vector3(winPosition.position.x, 0f, winPosition.position.z))) > 0.5f)
         {
-            AddReward(0.005f);
+            // If the agent is within the radius of the cone, do not provide a reward for moving inwards
+            if ((new Vector3(transform.position.x, 0f, transform.position.z) - new Vector3(winPosition.position.x, 0f, winPosition.position.z)).sqrMagnitude > 9 * 9)
+            {
+                AddReward(0.005f);
+            }
         }
 
         if (transform.position.y > 2f) 
@@ -81,15 +85,17 @@ public class SphereAgent : Agent
         {
             Debug.Log("King of the hill!");
             Debug.Log(hitObjects[0].name);
-            SetReward(1f);
 
             kingTime += Time.deltaTime;
             if (kingTime >= winTime)
             {
+                SetReward(1f);
                 kingTime = 0;
                 EndEpisode();
             }
         }
+
+        AddReward(-0.01f);
 
     }
 
